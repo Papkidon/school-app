@@ -11,9 +11,7 @@ db-seed:  # seed the database
 db-reset:  # reset the database ( drop db, migrate and seed )
 	npx prisma migrate reset
 
-db-first-run:  #  create migration, apply changes and reset the db
-	db-migrate
-	db-reset
+db-first-run: db-migrate db-reset  #  create migration, apply changes and reset the db
 
 test: tests
 tests:  # run tests
