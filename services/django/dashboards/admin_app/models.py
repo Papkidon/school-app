@@ -8,7 +8,7 @@ class AdminDashboard(models.Model):
     # in nest db will be aggregated
     # and used to create some awesome dashboard
     """
-    admin_count = models.IntegerField()
+    admin_count = models.IntegerField(default=-1)
     characters_count = models.JSONField()
 
     def __str__(self):
