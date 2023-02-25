@@ -4,13 +4,13 @@ services:
   nest-service:
     container_name: nest
     restart: always
-    build: ./backend/services/nest/
+    build: ./services/nest/
     ports:
       - ${NEST_SERVICE_PORT}:${NEST_SERVICE_PORT}
     environment:
       NODE_ENV: ${NODE_ENV}
     depends_on:
-      - postgres
+      - nest-postgres
 
   nest-postgres:
     container_name: nest-postgres
