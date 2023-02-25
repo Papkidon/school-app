@@ -1,7 +1,8 @@
 # compiled output
 /dist
 /node_modules
-/prisma/migrations
+prisma/migrations/*
+!/prisma/migrations/migration_lock.toml
 
 # OS
 .DS_Store
