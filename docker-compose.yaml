@@ -1,0 +1,60 @@
+version: '3.1'
+
+services:
+  nest-service:
+    container_name: nest
+    restart: always
+    build: ./backend/services/nest/
+    ports:
+      - ${NEST_SERVICE_PORT}:${NEST_SERVICE_PORT}
+    environment:
+      NODE_ENV: ${NODE_ENV}
+    depends_on:
+      - postgres
+
+  nest-postgres:
+    container_name: nest-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata-nest:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    command: -p 5432
+
+  django-postgres:
+    container_name: django-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DJANGO_DB_USER}
+      POSTGRES_PASSWORD: ${DJANGO_DB_PASSWORD}
+      POSTGRES_DB: ${DJANGO_DB_NAME}
+    volumes:
+      - pgdata-django:/var/lib/postgresql/data
+    ports:
+      - "5433:5433"
+    command: -p 5433
+
+#  keycloak:
+#    depends_on:
+#      - postgres
+#    container_name: local_keycloak
+#    environment:
+#      DB_VENDOR: postgres
+#      DB_ADDR: postgres
+#      DB_DATABASE: ${DB_NAME}
+#      DB_USER: ${DB_USER}
+#      DB_PASSWORD: ${DB_PASSWORD}
+#    image: sleighzy/keycloak
+#    ports:
+#      - "8080:8080"
+#    restart: unless-stopped
+
+volumes:
+  pgdata-nest:
+  pgdata-django:
