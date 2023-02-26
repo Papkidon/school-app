@@ -1,3 +1,6 @@
+install:
+		npm install
+
 run:  # start the app
 	npm run build
 	npm run start:dev
