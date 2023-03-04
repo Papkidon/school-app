@@ -12,7 +12,7 @@ class AdminDashboard(models.Model):
     characters_count = models.JSONField()
 
     def __str__(self):
-        return self.admin_count
+        return str(self.admin_count)
 
     @property
     def check_admin_count(self) -> bool:
