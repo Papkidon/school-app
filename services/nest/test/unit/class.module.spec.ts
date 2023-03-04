@@ -1,21 +1,18 @@
-import { ClassController } from '../../src/modules/class/class.controller';
-import { ClassService } from '../../src/modules/class/class.service';
-import { ClassRepository } from '../../src/modules/class/class.repository';
-import { PrismaService } from 'nestjs-prisma';
 import { Class } from '@prisma/client';
-import * as classTypes from '../../src/modules/class/class.mapper';
+import { PrismaService } from 'nestjs-prisma';
 import {
   classesWithSubjectsDto,
   mappedClassesWithSubjects,
 } from '../../src/models/class/class.types';
+import { ClassController } from '../../src/modules/class/class.controller';
+import * as classTypes from '../../src/modules/class/class.mapper';
+import { ClassRepository } from '../../src/modules/class/class.repository';
+import { ClassService } from '../../src/modules/class/class.service';
 import {
+  dummyClassCreate,
   dummyClassId,
   dummyClassUpdate,
-  dummyClassCreate,
 } from './utils/dummy.data';
-
-jest.mock('uuid', () => ({ v4: () => 'cdd77c0f-63f6-49a8-8023-dd05f8ec5dcf' }));
-jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
 describe('UserController', () => {
   let classController: ClassController;

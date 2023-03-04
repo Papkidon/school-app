@@ -1,16 +1,13 @@
-import { PrismaService } from 'nestjs-prisma';
 import { Admin } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
+import { AdminController } from '../../src/modules/admin/admin.controller';
 import { AdminRepository } from '../../src/modules/admin/admin.repository';
 import { AdminService } from '../../src/modules/admin/admin.service';
-import { AdminController } from '../../src/modules/admin/admin.controller';
 import {
+  dummyAdminCreate,
   dummyAdminId,
   dummyAdminUpdate,
-  dummyAdminCreate,
 } from './utils/dummy.data';
-
-jest.mock('uuid', () => ({ v4: () => 'cdd77c0f-63f6-49a8-8023-dd05f8ec5dcf' }));
-jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
 describe('UserController', () => {
   let adminController: AdminController;

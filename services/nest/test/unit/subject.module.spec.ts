@@ -1,21 +1,18 @@
-import { SubjectController } from '../../src/modules/subject/subject.controller';
-import { SubjectService } from '../../src/modules/subject/subject.service';
-import { SubjectRepository } from '../../src/modules/subject/subject.repository';
-import { PrismaService } from 'nestjs-prisma';
 import { Subject } from '@prisma/client';
-import * as subjectTypes from '../../src/modules/subject/subject.mapper';
+import { PrismaService } from 'nestjs-prisma';
 import {
   mappedSubjectsWithClassesDto,
   subjectsWithClassesDto,
 } from '../../src/models/subject/subject.types';
+import { SubjectController } from '../../src/modules/subject/subject.controller';
+import * as subjectTypes from '../../src/modules/subject/subject.mapper';
+import { SubjectRepository } from '../../src/modules/subject/subject.repository';
+import { SubjectService } from '../../src/modules/subject/subject.service';
 import {
-  dummySubjectId,
   dummySubjectCreate,
+  dummySubjectId,
   dummySubjectUpdate,
 } from './utils/dummy.data';
-
-jest.mock('uuid', () => ({ v4: () => 'cdd77c0f-63f6-49a8-8023-dd05f8ec5dcf' }));
-jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
 describe('UserController', () => {
   let subjectController: SubjectController;
