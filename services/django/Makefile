@@ -10,6 +10,7 @@ create-venv:
 		$(BIN)/pip install --upgrade -r requirements.txt; \
 	else \
 		${PYTHON_GLOBAL} -m venv ${VENV}; \
+		${BIN}/pip install --upgrade -r requirements.txt; \
 		echo "Virtual environment" \'${VENV}\' "successfully created"; \
 	fi;
 
@@ -19,7 +20,7 @@ reset-venv:
 		rm -r ${VENV}; \
 		find . -type f -name *.pyc -delete; \
 		find . -type d -name __pycache__ -delete; \
-		${PYTHON} -m venv ${VENV}; \
+		${PYTHON_GLOBAL} -m venv ${VENV}; \
 		$(BIN)/pip install --upgrade -r requirements.txt; \
 		echo "Virtual environment" \'${VENV}\' "successfully reset"; \
 	else \
