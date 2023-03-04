@@ -10,9 +10,9 @@ services:
     environment:
       NODE_ENV: ${NODE_ENV}
     depends_on:
-      - nest-postgres
+      - nestdb
 
-  nest-postgres:
+  nestdb:
     container_name: nest-postgres
     image: postgres
     restart: always
@@ -26,7 +26,7 @@ services:
       - "5432:5432"
     command: -p 5432
 
-  django-postgres:
+  djangodb:
     container_name: django-postgres
     image: postgres
     restart: always
@@ -39,21 +39,28 @@ services:
     ports:
       - "5433:5433"
     command: -p 5433
+  # rabbitmq:
+  #   image: "rabbitmq:3"
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
+  #   volumes:
+  #     - "rabbitmq_data:/data"
 
-#  keycloak:
-#    depends_on:
-#      - postgres
-#    container_name: local_keycloak
-#    environment:
-#      DB_VENDOR: postgres
-#      DB_ADDR: postgres
-#      DB_DATABASE: ${DB_NAME}
-#      DB_USER: ${DB_USER}
-#      DB_PASSWORD: ${DB_PASSWORD}
-#    image: sleighzy/keycloak
-#    ports:
-#      - "8080:8080"
-#    restart: unless-stopped
+  #  keycloak:
+  #    depends_on:
+  #      - postgres
+  #    container_name: local_keycloak
+  #    environment:
+  #      DB_VENDOR: postgres
+  #      DB_ADDR: postgres
+  #      DB_DATABASE: ${DB_NAME}
+  #      DB_USER: ${DB_USER}
+  #      DB_PASSWORD: ${DB_PASSWORD}
+  #    image: sleighzy/keycloak
+  #    ports:
+  #      - "8080:8080"
+  #    restart: unless-stopped
 
 volumes:
   pgdata-nest:
