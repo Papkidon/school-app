@@ -3,11 +3,6 @@ PYTHON_GLOBAL=python3
 BIN=$(VENV)/bin
 PYTHON_VENV=${BIN}/python
 
-# for windows
-ifeq ($(OS), Windows_NT)
-    BIN=$(VENV)/Scripts
-endif
-
 .SILENT:
 create-venv:
 	if [ -d ${VENV} ]; then \
@@ -30,9 +25,9 @@ reset-venv:
 	else \
 		echo "Virtual environment" \'${VENV}\' "doesn't exist"; \
 	fi;
-	
+
 run:
-	cd dashboards/; ../${PYTHON_VENV} manage.py runserver 0.0.0.0:3001
+	cd dashboards/; ../${PYTHON_VENV} manage.py runserver 0.0.0.0:3001;
 
 migrate:
-	cd dashboards/; ../${PYTHON_VENV} manage.py makemigrations; ../${PYTHON_VENV} manage.py migrate
+	cd dashboards/; ../${PYTHON_VENV} manage.py makemigrations; ../${PYTHON_VENV} manage.py migrate;
