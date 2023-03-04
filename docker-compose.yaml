@@ -9,8 +9,22 @@ services:
       - ${NEST_SERVICE_PORT}:${NEST_SERVICE_PORT}
     environment:
       NODE_ENV: ${NODE_ENV}
+    volumes:
+      - .:/nest-data
     depends_on:
       - nestdb
+
+  django-service:
+    container_name: django
+    restart: always
+    build: ./services/django
+    ports:
+      - ${DJANGO_SERVICE_PORT}:${DJANGO_SERVICE_PORT}
+    command: python dashboards/manage.py runserver 0.0.0.0:${DJANGO_SERVICE_PORT}
+    volumes:
+      - .:/django-data
+    depends_on:
+      - djangodb
 
   nestdb:
     container_name: nest-postgres
@@ -63,5 +77,7 @@ services:
   #    restart: unless-stopped
 
 volumes:
+  nest-data:
+  django-data:
   pgdata-nest:
   pgdata-django:
