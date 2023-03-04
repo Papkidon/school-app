@@ -1,5 +1,5 @@
 # --------------> The build image
-FROM node:18-bullseye-slim AS build
+FROM node:19-bullseye-slim AS build
 
 # Install dumb-init
 RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
@@ -9,8 +9,8 @@ WORKDIR /services/nest
 
 # Copy project dependencies
 COPY package*.json ./
-COPY tsconfig*.json ./
-COPY prisma ./prisma/
+COPY tsconfig.json ./
+COPY prisma prisma
 
 # Install app dependencies
 RUN npm i
@@ -23,7 +23,7 @@ COPY --chown=node:node . .
 RUN npx prisma generate && npm run build
 
 # --------------> The production image
-FROM node:18-bullseye-slim
+FROM node:19-bullseye-slim
 
 # Copy dumb-init from first stage build
 COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
@@ -38,20 +38,21 @@ RUN chown -R node:node /services/nest
 USER node:node
 
 # Copy package.json from first stage build
-COPY --from=build --chown=node:node /services/nest/package*.json /services/nest/
-COPY --from=build --chown=node:node /services/nest/tsconfig*.json /services/nest/
-COPY --from=build --chown=node:node /services/nest/prisma /services/nest/prisma
-COPY --from=build --chown=node:node /services/nest/node_modules /services/nest/node_modules
+COPY --chown=node:node --from=build /services/nest/package*.json /services/nest/
+# Copy public  directory
+COPY --chown=node:node --from=build /services/nest/public /services/nest/public
 # Copy compiled project
 COPY --chown=node:node --from=build /services/nest/dist /services/nest/dist
+# Copy prisma directory
+COPY --chown=node:node --from=build /services/nest/prisma /services/nest/prisma
+# Copy prisma client
+COPY --chown=node:node --from=build /services/nest/node_modules/.prisma /services/nest/node_modules/.prisma
 
 # Metadata about exposed port
 EXPOSE 3000:3000
 
 # Install only production dependencies
-#RUN npm ci --only=production
-RUN npx prisma generate && npx prisma migrate
+RUN npm ci --only=production
 
 # Start the app
-# TODO: Change this to CMD [ "dumb-init", "node", "dist/main.js" ]
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "start:migrate:prod" ]
