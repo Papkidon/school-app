@@ -1,16 +1,13 @@
-import { UserController } from '../../src/modules/user/user.controller';
-import { UserService } from '../../src/modules/user/user.service';
-import { UserRepository } from '../../src/modules/user/user.repository';
-import { PrismaService } from 'nestjs-prisma';
 import { User } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
+import { UserController } from '../../src/modules/user/user.controller';
+import { UserRepository } from '../../src/modules/user/user.repository';
+import { UserService } from '../../src/modules/user/user.service';
 import {
+  dummyUserCreate,
   dummyUserId,
   dummyUserUpdate,
-  dummyUserCreate,
 } from './utils/dummy.data';
-
-jest.mock('uuid', () => ({ v4: () => 'cdd77c0f-63f6-49a8-8023-dd05f8ec5dcf' }));
-jest.useFakeTimers().setSystemTime(new Date('2020-01-01'));
 
 describe('UserController', () => {
   let userController: UserController;
