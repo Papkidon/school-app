@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserController create should create a new class 1`] = `"dummyCreatedClass"`;
+
+exports[`UserController delete should delete a class with given id 1`] = `"dummyDeletedUser"`;
+
+exports[`UserController findAll should return an array of all classes 1`] = `
+[
+  "class1",
+  "class2",
+]
+`;
+
+exports[`UserController findClassesWithSubjects should return all classes with their subjects 1`] = `"dummyMappedResult"`;
+
+exports[`UserController findUnique should return a class with given id 1`] = `"dummyFoundByIdClass"`;
+
+exports[`UserController update should update a class with given id 1`] = `"dummyUpdatedClass"`;

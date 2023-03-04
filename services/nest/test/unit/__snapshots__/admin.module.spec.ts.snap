@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserController create should create a new admin 1`] = `"dummyCreatedAdmin"`;
+
+exports[`UserController delete should delete an admin with given id 1`] = `"dummyDeletedAdmin"`;
+
+exports[`UserController findAll should return an array of all admins 1`] = `
+[
+  "admin1",
+  "admin2",
+]
+`;
+
+exports[`UserController findUnique should return an admin with given id 1`] = `"dummyFoundByIdAdmin"`;
+
+exports[`UserController update should update an admin with given id 1`] = `"dummyUpdatedAdmin"`;

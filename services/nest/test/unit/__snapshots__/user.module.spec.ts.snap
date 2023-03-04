@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserController create should create a new user 1`] = `"dummyCreatedUser"`;
+
+exports[`UserController delete should delete an user with given id 1`] = `"dummyDeletedUser"`;
+
+exports[`UserController findAll should return an array of all users 1`] = `
+[
+  "user1",
+  "user2",
+]
+`;
+
+exports[`UserController findUnique should return an user with given id 1`] = `"dummyFoundByIdUser"`;
+
+exports[`UserController update should update an user with given id 1`] = `"dummyUpdatedUser"`;
