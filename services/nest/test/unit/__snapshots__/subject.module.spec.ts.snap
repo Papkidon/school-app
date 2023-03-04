@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserController create should create a new subject 1`] = `"dummyCreatedSubject"`;
+
+exports[`UserController delete should delete a subject with given id 1`] = `"dummyDeletedSubject"`;
+
+exports[`UserController findAll should return an array of all subjects 1`] = `
+[
+  "subject1",
+  "subject2",
+]
+`;
+
+exports[`UserController findSubjectsWithClasses should return all subjects with their classes 1`] = `"dummyMappedSubjectsWithClasses"`;
+
+exports[`UserController findUnique should return a subject with given id 1`] = `"dummyFoundByIdSubject"`;
+
+exports[`UserController update should update a subject with given id 1`] = `"dummyUpdatedSubject"`;
