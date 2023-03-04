@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService as PrismaService } from 'nestjs-prisma';
 import { adminType } from '../../models/admin/admin.types';
 import { DeepPartial } from '../../models/utility.types';
-import { Admin, User } from "@prisma/client";
+import { Admin } from '@prisma/client';
 
 @Injectable()
 export class AdminRepository {
