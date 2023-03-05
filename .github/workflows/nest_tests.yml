@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
+        working-directory: services/nest/
         run: npm install
       - name: Build the project
         working-directory: services/nest/
