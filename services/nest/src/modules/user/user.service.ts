@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { UserRepository } from './user.repository';
+import { User } from '@prisma/client';
 import { userType } from '../../models/user/user.types';
 import { DeepPartial } from '../../models/utility.types';
-import { User } from '@prisma/client';
 import BuildPerson from '../../utils/BuildPerson/BuildPerson';
+import { UserRepository } from './user.repository';
 
 @Injectable()
 export class UserService {
@@ -14,6 +14,10 @@ export class UserService {
 
   async findById(id: string): Promise<User> {
     return await this.userRepository.findById(id);
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    return await this.userRepository.findByUsername(username);
   }
 
   async create(body: any): Promise<User> {

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService as PrismaService } from 'nestjs-prisma';
+import { User } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
 import { userType } from '../../models/user/user.types';
 import { DeepPartial } from '../../models/utility.types';
-import { User } from '@prisma/client';
 
 @Injectable()
 export class UserRepository {
@@ -12,7 +12,11 @@ export class UserRepository {
   }
 
   async findById(id: string): Promise<User> {
-    return await this.prisma.user.findUnique({ where: { id: id } });
+    return await this.prisma.user.findUnique({ where: { id } });
+  }
+
+  async findByUsername(username: string): Promise<User> {
+    return await this.prisma.user.findUnique({ where: { username } });
   }
 
   async create(body: any): Promise<User> {
@@ -22,19 +26,19 @@ export class UserRepository {
   async createRandomUser(username: string, password: string): Promise<User> {
     return await this.prisma.user.create({
       data: {
-        username: username,
-        password: password,
+        username,
+        password,
       },
     });
   }
 
   async delete(id: string): Promise<User> {
-    return await this.prisma.user.delete({ where: { id: id } });
+    return await this.prisma.user.delete({ where: { id } });
   }
 
   async update(id: string, body: DeepPartial<userType>): Promise<User> {
     return await this.prisma.user.update({
-      where: { id: id },
+      where: { id },
       data: { ...body.data },
     });
   }

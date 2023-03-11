@@ -3,22 +3,22 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
-  Post,
-  Patch,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
-import { ClassService } from './class.service';
-import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
-import { DeepPartial, idSchema } from '../../models/utility.types';
+import { Class } from '@prisma/client';
 import {
   classCreateSchema,
-  classUpdateSchema,
   classType,
+  classUpdateSchema,
 } from '../../models/class/class.types';
-import { Class } from '@prisma/client';
+import { DeepPartial, idSchema } from '../../models/utility.types';
+import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
 import { mapClassesWithSubjects } from './class.mapper';
+import { ClassService } from './class.service';
 
 @Controller('api/v1/class')
 export class ClassController {
@@ -67,6 +67,17 @@ export class ClassController {
     @Body(new ZodValidationPipe(classCreateSchema)) createClassDto: classType,
   ): Promise<Class> {
     try {
+      const foundClass = await this.classService.findByNumber(
+        createClassDto.data.number,
+      );
+
+      if (foundClass) {
+        throw new HttpException(
+          'Class with given number already exists',
+          HttpStatus.CONFLICT,
+        );
+      }
+
       return await this.classService.create(createClassDto);
     } catch (error) {
       throw error;
@@ -100,6 +111,15 @@ export class ClassController {
     body: DeepPartial<classType>,
   ): Promise<Class> {
     try {
+      const foundClass = await this.classService.findById(id);
+
+      if (!foundClass) {
+        throw new HttpException(
+          'Class with given id does not exist in the database',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
       return await this.classService.update(id, body);
     } catch (error) {
       throw error;
@@ -111,6 +131,15 @@ export class ClassController {
     @Param('id', new ZodValidationPipe(idSchema)) id: string,
   ): Promise<Class> {
     try {
+      const foundClass = await this.classService.findById(id);
+
+      if (!foundClass) {
+        throw new HttpException(
+          'Class with given id does not exist in the database',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
       return await this.classService.delete(id);
     } catch (error) {
       throw error;

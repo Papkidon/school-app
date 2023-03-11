@@ -16,6 +16,10 @@ export class ClassService {
     return await this.classRepository.findById(id);
   }
 
+  async findByNumber(number: number): Promise<Class> {
+    return await this.classRepository.findByNumber(number);
+  }
+
   async findAllClassesWithSubjects(): Promise<classesWithSubjectsDto> {
     return await this.classRepository.findAllClassesWithSubjects();
   }

@@ -1,11 +1,13 @@
 import { z } from 'zod';
 
-export const classCreateSchema = z.object({
-  data: z.object({
-    number: z.number(),
-    max_population: z.number(),
-  }),
-});
+export const classCreateSchema = z
+  .object({
+    data: z.object({
+      number: z.number().int().min(0),
+      max_population: z.number().int().min(0),
+    }),
+  })
+  .strict();
 
 export const classUpdateSchema = classCreateSchema.deepPartial();
 

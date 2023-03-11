@@ -47,13 +47,13 @@ export class AdminController {
     @Body(new ZodValidationPipe(adminCreateSchema)) createAdminDto: adminType,
   ): Promise<Admin> {
     try {
-      const userExists = await this.adminService.findByUsername(
+      const adminExists = await this.adminService.findByUsername(
         createAdminDto.data.username,
       );
 
-      if (userExists) {
+      if (adminExists) {
         throw new HttpException(
-          'User with given username already exists',
+          'Admin with given username already exists',
           HttpStatus.CONFLICT,
         );
       }
@@ -73,7 +73,7 @@ export class AdminController {
 
       if (!result) {
         throw new HttpException(
-          'User with given id does not exist in the database',
+          'Admin with given id does not exist in the database',
           HttpStatus.NOT_FOUND,
         );
       }
@@ -91,9 +91,9 @@ export class AdminController {
     body: DeepPartial<adminType>,
   ): Promise<Admin> {
     try {
-      const userExists = await this.adminService.findById(id);
+      const adminExists = await this.adminService.findById(id);
 
-      if (!userExists) {
+      if (!adminExists) {
         throw new HttpException(
           'Admin with given id does not exist',
           HttpStatus.NOT_FOUND,
@@ -111,9 +111,9 @@ export class AdminController {
     @Param('id', new ZodValidationPipe(idSchema)) id: string,
   ): Promise<Admin> {
     try {
-      const userExists = await this.adminService.findById(id);
+      const adminExists = await this.adminService.findById(id);
 
-      if (!userExists) {
+      if (!adminExists) {
         throw new HttpException(
           'Admin with given id does not exist',
           HttpStatus.NOT_FOUND,

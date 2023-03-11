@@ -1,19 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService as PrismaService } from 'nestjs-prisma';
-import { classType } from '../../models/class/class.types';
-import { DeepPartial } from '../../models/utility.types';
 import { Class } from '@prisma/client';
-import { classesWithSubjectsDto } from '../../models/class/class.types';
+import { PrismaService } from 'nestjs-prisma';
+import {
+  classesWithSubjectsDto,
+  classType,
+} from '../../models/class/class.types';
+import { DeepPartial } from '../../models/utility.types';
 
 @Injectable()
 export class ClassRepository {
   constructor(private prisma: PrismaService) {}
+
   async findAll(): Promise<Class[]> {
     return await this.prisma.class.findMany();
   }
 
   async findById(id: string): Promise<Class> {
-    return await this.prisma.class.findUnique({ where: { id: id } });
+    return await this.prisma.class.findUnique({ where: { id } });
+  }
+
+  async findByNumber(number: number): Promise<Class> {
+    return await this.prisma.class.findUnique({ where: { number } });
   }
 
   async findAllClassesWithSubjects(): Promise<classesWithSubjectsDto> {
@@ -33,12 +40,12 @@ export class ClassRepository {
   }
 
   async delete(id: string): Promise<Class> {
-    return await this.prisma.class.delete({ where: { id: id } });
+    return await this.prisma.class.delete({ where: { id } });
   }
 
   async update(id: string, body: DeepPartial<classType>): Promise<Class> {
     return await this.prisma.class.update({
-      where: { id: id },
+      where: { id },
       data: { ...body.data },
     });
   }

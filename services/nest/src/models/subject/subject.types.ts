@@ -1,11 +1,13 @@
 import { z } from 'zod';
 
-export const subjectCreateSchema = z.object({
-  data: z.object({
-    name: z.string(),
-    points: z.number(),
-  }),
-});
+export const subjectCreateSchema = z
+  .object({
+    data: z.object({
+      name: z.string(),
+      points: z.number().int().min(0),
+    }),
+  })
+  .strict();
 
 export const subjectUpdateSchema = subjectCreateSchema.deepPartial();
 

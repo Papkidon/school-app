@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService as PrismaService } from 'nestjs-prisma';
-import { subjectType } from '../../models/subject/subject.types';
-import { DeepPartial } from '../../models/utility.types';
 import { Subject } from '@prisma/client';
-import { subjectsWithClassesDto } from '../../models/subject/subject.types';
+import { PrismaService } from 'nestjs-prisma';
+import {
+  subjectsWithClassesDto,
+  subjectType,
+} from '../../models/subject/subject.types';
+import { DeepPartial } from '../../models/utility.types';
 
 @Injectable()
 export class SubjectRepository {
@@ -13,7 +15,11 @@ export class SubjectRepository {
   }
 
   async findById(id: string): Promise<Subject> {
-    return await this.prisma.subject.findUnique({ where: { id: id } });
+    return await this.prisma.subject.findUnique({ where: { id } });
+  }
+
+  async findByName(name: string): Promise<Subject> {
+    return await this.prisma.subject.findUnique({ where: { name } });
   }
 
   async findAllSubjectsWithClasses() {
@@ -38,12 +44,12 @@ export class SubjectRepository {
   }
 
   async delete(id: string): Promise<Subject> {
-    return await this.prisma.subject.delete({ where: { id: id } });
+    return await this.prisma.subject.delete({ where: { id } });
   }
 
   async update(id: string, body: DeepPartial<subjectType>): Promise<Subject> {
     return await this.prisma.subject.update({
-      where: { id: id },
+      where: { id },
       data: { ...body.data },
     });
   }

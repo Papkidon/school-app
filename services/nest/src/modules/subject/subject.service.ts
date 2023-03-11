@@ -16,6 +16,10 @@ export class SubjectService {
     return await this.subjectRepository.findById(id);
   }
 
+  async findByName(name: string): Promise<Subject> {
+    return await this.subjectRepository.findByName(name);
+  }
+
   async findAllSubjectWithClasses(): Promise<subjectsWithClassesDto> {
     return await this.subjectRepository.findAllSubjectsWithClasses();
   }

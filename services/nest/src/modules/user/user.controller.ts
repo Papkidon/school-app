@@ -3,22 +3,22 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
-  Post,
-  Patch,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import {
   userCreateSchema,
   userUpdateSchema,
 } from '../../models/user/user.types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { UserService } from './user.service';
-import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
+import { User } from '@prisma/client';
 import { userType } from '../../models/user/user.types';
 import { DeepPartial, idSchema } from '../../models/utility.types';
-import { User } from '@prisma/client';
+import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
+import { UserService } from './user.service';
 
 @Controller('api/v1/user')
 export class UserController {
@@ -47,6 +47,17 @@ export class UserController {
     @Body(new ZodValidationPipe(userCreateSchema)) createUserDto: userType,
   ): Promise<User> {
     try {
+      const userExists = await this.userService.findByUsername(
+        createUserDto.data.username,
+      );
+
+      if (userExists) {
+        throw new HttpException(
+          'User with given username already exists',
+          HttpStatus.CONFLICT,
+        );
+      }
+
       return await this.userService.create(createUserDto);
     } catch (error) {
       throw error;
@@ -89,6 +100,14 @@ export class UserController {
     body: DeepPartial<userType>,
   ): Promise<User> {
     try {
+      const userExists = await this.userService.findById(id);
+
+      if (!userExists) {
+        throw new HttpException(
+          'User with given username does not exist',
+          HttpStatus.NOT_FOUND,
+        );
+      }
       return await this.userService.update(id, body);
     } catch (error) {
       throw error;
@@ -100,6 +119,14 @@ export class UserController {
     @Param('id', new ZodValidationPipe(idSchema)) id: string,
   ): Promise<User> {
     try {
+      const userExists = await this.userService.findById(id);
+
+      if (!userExists) {
+        throw new HttpException(
+          'User with given username does not exist',
+          HttpStatus.NOT_FOUND,
+        );
+      }
       return await this.userService.delete(id);
     } catch (error) {
       throw error;
