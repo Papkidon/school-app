@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[UserController] Integration tests Create random user - should fail due to an unpredicted error 1`] = `
+{
+  "message": "Internal server error",
+  "statusCode": 500,
+}
+`;
+
+exports[`[UserController] Integration tests Create random user - should pass 1`] = `{}`;
+
+exports[`[UserController] Integration tests Create user - should fail when request body is incorrect 1`] = `
+[
+  {
+    "code": "invalid_type",
+    "expected": "object",
+    "message": "Required",
+    "path": [
+      "data",
+    ],
+    "received": "undefined",
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "wrong",
+    ],
+    "message": "Unrecognized key(s) in object: 'wrong'",
+    "path": [],
+  },
+]
+`;
+
+exports[`[UserController] Integration tests Create user - should fail when user with given username already exists 1`] = `
+{
+  "message": "User with given username already exists",
+  "statusCode": 409,
+}
+`;
+
+exports[`[UserController] Integration tests Create user - should pass when request body is correct 1`] = `{}`;
+
+exports[`[UserController] Integration tests Delete user - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[UserController] Integration tests Delete user - should fail when user with given id does not exist in the db 1`] = `
+{
+  "message": "User with given username does not exist",
+  "statusCode": 404,
+}
+`;
+
+exports[`[UserController] Integration tests Delete user - should pass when user with given id exists in the db 1`] = `{}`;
+
+exports[`[UserController] Integration tests Get all user - should fail when no user data exists in the db 1`] = `
+{
+  "message": "No user data exists in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[UserController] Integration tests Get all users - should pass when at least one user exists in the db 1`] = `
+[
+  "dummyFoundUser",
+]
+`;
+
+exports[`[UserController] Integration tests Get user by id - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[UserController] Integration tests Get user by id - should fail when user with given id does not exists in the db 1`] = `
+{
+  "message": "User with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[UserController] Integration tests Get user by id - should pass when user with given id exists in the db 1`] = `{}`;
+
+exports[`[UserController] Integration tests Update user - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[UserController] Integration tests Update user - should fail when user with given id does not exists in the db 1`] = `
+{
+  "message": "User with given username does not exist",
+  "statusCode": 404,
+}
+`;
+
+exports[`[UserController] Integration tests Update user - should pass when user with given id exists in the db 1`] = `{}`;

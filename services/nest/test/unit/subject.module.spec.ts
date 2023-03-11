@@ -12,7 +12,7 @@ import {
   dummySubjectCreate,
   dummySubjectId,
   dummySubjectUpdate,
-} from './utils/dummy.data';
+} from './dummies/dummy.data';
 
 describe('UserController', () => {
   let subjectController: SubjectController;
@@ -79,10 +79,14 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should create a new subject', async () => {
+      const dummySubjectNotFound = '' as unknown as Subject;
       const result = 'dummyCreatedSubject' as unknown as Subject;
       jest
         .spyOn(subjectRepository, 'create')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(subjectRepository, 'findByName')
+        .mockImplementation(async () => dummySubjectNotFound);
 
       expect(
         await subjectController.create(dummySubjectCreate),
@@ -92,10 +96,15 @@ describe('UserController', () => {
 
   describe('update', () => {
     it('should update a subject with given id', async () => {
+      const dummyFoundSubjectById =
+        'dummyFoundSubjectById' as unknown as Subject;
       const result = 'dummyUpdatedSubject' as unknown as Subject;
       jest
         .spyOn(subjectRepository, 'update')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(subjectRepository, 'findById')
+        .mockImplementation(async () => dummyFoundSubjectById);
 
       expect(
         await subjectRepository.update(dummySubjectId, dummySubjectUpdate),
@@ -105,10 +114,15 @@ describe('UserController', () => {
 
   describe('delete', () => {
     it('should delete a subject with given id', async () => {
+      const dummyFoundSubjectById =
+        'dummyFoundSubjectById' as unknown as Subject;
       const result = 'dummyDeletedSubject' as unknown as Subject;
       jest
         .spyOn(subjectRepository, 'delete')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(subjectRepository, 'findById')
+        .mockImplementation(async () => dummyFoundSubjectById);
 
       expect(await subjectController.delete(dummySubjectId)).toMatchSnapshot();
     });

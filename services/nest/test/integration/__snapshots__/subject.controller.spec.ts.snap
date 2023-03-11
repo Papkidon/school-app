@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[SubjectController] Integration tests Create subject - should fail when request body is incorrect 1`] = `
+[
+  {
+    "code": "invalid_type",
+    "expected": "object",
+    "message": "Required",
+    "path": [
+      "data",
+    ],
+    "received": "undefined",
+  },
+]
+`;
+
+exports[`[SubjectController] Integration tests Create subject - should fail when subject with given number already exists 1`] = `
+{
+  "message": "Subject with given name already exists",
+  "statusCode": 409,
+}
+`;
+
+exports[`[SubjectController] Integration tests Create subject - should pass when request body is correct 1`] = `{}`;
+
+exports[`[SubjectController] Integration tests Delete subject - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[SubjectController] Integration tests Delete subject - should fail when subject with given id does not exist in the db 1`] = `
+{
+  "message": "Subject with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[SubjectController] Integration tests Delete subject - should pass when subject with given id exists in the db 1`] = `{}`;
+
+exports[`[SubjectController] Integration tests Get all subjects - should fail when no subject data exists in the db 1`] = `
+{
+  "message": "No subject data exists in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[SubjectController] Integration tests Get all subjects - should pass when at least one subject exists in the db 1`] = `
+[
+  "dummyFoundSubjects",
+]
+`;
+
+exports[`[SubjectController] Integration tests Get subject by id - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[SubjectController] Integration tests Get subject by id - should fail when subject with given id does not exists in the db 1`] = `
+{
+  "message": "Subject with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[SubjectController] Integration tests Get subject by id - should pass when subject with given id exists in the db 1`] = `{}`;
+
+exports[`[SubjectController] Integration tests Get subjects with classes - should fail when data does not exists 1`] = `
+{
+  "message": "No subject with classes data was found in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[SubjectController] Integration tests Get subjects with classes - should pass when data exists 1`] = `
+[
+  {
+    "classes": [
+      {
+        "created_at": "2023-03-11T14:19:21.154",
+        "id": "d379d73a-7958-44e4-ab59-0e4128f35295",
+        "max_population": 20,
+        "number": 211,
+        "updated_at": "2023-03-11T14:19:21.154",
+      },
+    ],
+    "id": "917d669d-ea51-4031-b7ef-25b1850bbd52",
+    "name": "geography",
+    "points": 1,
+  },
+  {
+    "classes": [
+      {
+        "created_at": "2023-03-11T14:19:21.166",
+        "id": "261133c7-c73c-4a7f-8199-548798dc0e97",
+        "max_population": 15,
+        "number": 111,
+        "updated_at": "2023-03-11T14:19:21.166",
+      },
+    ],
+    "id": "c3114bc1-1bfa-4f44-ba17-f199a6dc635c",
+    "name": "math",
+    "points": 5,
+  },
+]
+`;
+
+exports[`[SubjectController] Integration tests Update subject - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[SubjectController] Integration tests Update subject - should fail when subject with given id does not exists in the db 1`] = `
+{
+  "message": "Subject with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[SubjectController] Integration tests Update subject - should pass when subject with given id exists in the db 1`] = `{}`;

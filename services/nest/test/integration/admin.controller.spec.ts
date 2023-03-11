@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AdminModule } from '../../src/modules/admin/admin.module';
 import { AdminRepository } from '../../src/modules/admin/admin.repository';
-import { dummyAdminCreate } from './dummies/dummy.data';
+import { dummyPersonCreate } from './dummies/dummy.data';
 
 describe('[AdminController] Integration tests', () => {
   let app: INestApplication;
@@ -80,9 +80,18 @@ describe('[AdminController] Integration tests', () => {
 
     const response = await request(app.getHttpServer())
       .post('/api/v1/admin/')
-      .send(dummyAdminCreate);
+      .send(dummyPersonCreate);
 
     expect(response.status).toEqual(201);
+    expect(response.body).toMatchSnapshot();
+  });
+
+  it(`Create admin - should fail when admin with given username already exists`, async () => {
+    const response = await request(app.getHttpServer())
+      .post('/api/v1/admin/')
+      .send(dummyPersonCreate);
+
+    expect(response.status).toEqual(409);
     expect(response.body).toMatchSnapshot();
   });
 
