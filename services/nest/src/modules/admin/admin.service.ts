@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { AdminRepository } from './admin.repository';
+import { Admin } from '@prisma/client';
 import { adminType } from '../../models/admin/admin.types';
 import { DeepPartial } from '../../models/utility.types';
-import { Admin } from '@prisma/client';
+import { AdminRepository } from './admin.repository';
 
 @Injectable()
 export class AdminService {
@@ -13,6 +13,10 @@ export class AdminService {
 
   async findById(id: string): Promise<Admin> {
     return await this.adminRepository.findById(id);
+  }
+
+  async findByUsername(username: string): Promise<Admin> {
+    return await this.adminRepository.findByUsername(username);
   }
 
   async create(body: any): Promise<Admin> {

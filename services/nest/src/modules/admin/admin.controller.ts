@@ -3,22 +3,22 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
-  Post,
-  Patch,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import {
   adminCreateSchema,
   adminUpdateSchema,
 } from '../../models/admin/admin.types';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AdminService } from './admin.service';
-import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
-import { adminType } from '../../models/admin/admin.types';
 import { Admin } from '@prisma/client';
+import { adminType } from '../../models/admin/admin.types';
 import { DeepPartial, idSchema } from '../../models/utility.types';
+import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
+import { AdminService } from './admin.service';
 
 @Controller('api/v1/admin')
 export class AdminController {
@@ -47,6 +47,17 @@ export class AdminController {
     @Body(new ZodValidationPipe(adminCreateSchema)) createAdminDto: adminType,
   ): Promise<Admin> {
     try {
+      const userExists = await this.adminService.findByUsername(
+        createAdminDto.data.username,
+      );
+
+      if (userExists) {
+        throw new HttpException(
+          'User with given username already exists',
+          HttpStatus.CONFLICT,
+        );
+      }
+
       return await this.adminService.create(createAdminDto);
     } catch (error) {
       throw error;
@@ -80,6 +91,15 @@ export class AdminController {
     body: DeepPartial<adminType>,
   ): Promise<Admin> {
     try {
+      const userExists = await this.adminService.findById(id);
+
+      if (!userExists) {
+        throw new HttpException(
+          'Admin with given id does not exist',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
       return await this.adminService.update(id, body);
     } catch (error) {
       throw error;
@@ -91,6 +111,15 @@ export class AdminController {
     @Param('id', new ZodValidationPipe(idSchema)) id: string,
   ): Promise<Admin> {
     try {
+      const userExists = await this.adminService.findById(id);
+
+      if (!userExists) {
+        throw new HttpException(
+          'Admin with given id does not exist',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
       return await this.adminService.delete(id);
     } catch (error) {
       throw error;

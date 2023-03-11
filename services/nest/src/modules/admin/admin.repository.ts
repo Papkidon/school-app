@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService as PrismaService } from 'nestjs-prisma';
+import { Admin } from '@prisma/client';
+import { PrismaService } from 'nestjs-prisma';
 import { adminType } from '../../models/admin/admin.types';
 import { DeepPartial } from '../../models/utility.types';
-import { Admin } from '@prisma/client';
 
 @Injectable()
 export class AdminRepository {
@@ -12,7 +12,11 @@ export class AdminRepository {
   }
 
   async findById(id: string): Promise<Admin> {
-    return await this.prisma.admin.findUnique({ where: { id: id } });
+    return await this.prisma.admin.findUnique({ where: { id } });
+  }
+
+  async findByUsername(username: string): Promise<Admin> {
+    return await this.prisma.admin.findUnique({ where: { username } });
   }
 
   async create(body: any): Promise<Admin> {
@@ -20,12 +24,12 @@ export class AdminRepository {
   }
 
   async delete(id: string): Promise<Admin> {
-    return await this.prisma.admin.delete({ where: { id: id } });
+    return await this.prisma.admin.delete({ where: { id } });
   }
 
   async update(id: string, body: DeepPartial<adminType>): Promise<Admin> {
     return await this.prisma.admin.update({
-      where: { id: id },
+      where: { id },
       data: { ...body.data },
     });
   }

@@ -51,10 +51,14 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should create a new admin', async () => {
+      const dummyAdminNotFound = '' as unknown as Admin;
       const result = 'dummyCreatedAdmin' as unknown as Admin;
       jest
         .spyOn(adminRepository, 'create')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(adminRepository, 'findByUsername')
+        .mockImplementation(async () => dummyAdminNotFound);
 
       expect(await adminController.create(dummyAdminCreate)).toMatchSnapshot();
     });
@@ -62,10 +66,14 @@ describe('UserController', () => {
 
   describe('update', () => {
     it('should update an admin with given id', async () => {
+      const dummyFoundAdminById = 'dummyAdminExists' as unknown as Admin;
       const result = 'dummyUpdatedAdmin' as unknown as Admin;
       jest
         .spyOn(adminRepository, 'update')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(adminRepository, 'findById')
+        .mockImplementation(async () => dummyFoundAdminById);
 
       expect(
         await adminController.update(dummyAdminId, dummyAdminUpdate),
@@ -75,10 +83,14 @@ describe('UserController', () => {
 
   describe('delete', () => {
     it('should delete an admin with given id', async () => {
+      const dummyAdminFoundById = 'dummyAdminFoundById' as unknown as Admin;
       const result = 'dummyDeletedAdmin' as unknown as Admin;
       jest
         .spyOn(adminRepository, 'delete')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(adminRepository, 'findById')
+        .mockImplementation(async () => dummyAdminFoundById);
 
       expect(await adminController.delete(dummyAdminId)).toMatchSnapshot();
     });
