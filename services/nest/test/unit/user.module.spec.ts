@@ -7,7 +7,7 @@ import {
   dummyUserCreate,
   dummyUserId,
   dummyUserUpdate,
-} from './utils/dummy.data';
+} from './dummies/dummy.data';
 
 describe('UserController', () => {
   let userController: UserController;
@@ -41,6 +41,7 @@ describe('UserController', () => {
   describe('findUnique', () => {
     it('should return an user with given id', async () => {
       const result = 'dummyFoundByIdUser' as unknown as User;
+
       jest
         .spyOn(userRepository, 'findById')
         .mockImplementation(async () => result);
@@ -51,10 +52,15 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should create a new user', async () => {
+      const dummyNotFoundUserByUsername = '' as unknown as User;
       const result = 'dummyCreatedUser' as unknown as User;
+
       jest
         .spyOn(userRepository, 'create')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(userRepository, 'findByUsername')
+        .mockImplementation(async () => dummyNotFoundUserByUsername);
 
       expect(await userController.create(dummyUserCreate)).toMatchSnapshot();
     });
@@ -62,10 +68,16 @@ describe('UserController', () => {
 
   describe('update', () => {
     it('should update an user with given id', async () => {
+      const dummyFoundUserToUpdate =
+        'dummyFoundUserToUpdate' as unknown as User;
       const result = 'dummyUpdatedUser' as unknown as User;
+
       jest
         .spyOn(userRepository, 'update')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(userRepository, 'findById')
+        .mockImplementation(async () => dummyFoundUserToUpdate);
 
       expect(
         await userController.update(dummyUserId, dummyUserUpdate),
@@ -75,10 +87,14 @@ describe('UserController', () => {
 
   describe('delete', () => {
     it('should delete an user with given id', async () => {
+      const dummyFoundUserToDelete = 'dummyUserToDelete' as unknown as User;
       const result = 'dummyDeletedUser' as unknown as User;
       jest
         .spyOn(userRepository, 'delete')
         .mockImplementation(async () => result);
+      jest
+        .spyOn(userRepository, 'findById')
+        .mockImplementation(async () => dummyFoundUserToDelete);
 
       expect(await userController.delete(dummyUserId)).toMatchSnapshot();
     });

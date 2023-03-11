@@ -11,8 +11,8 @@ exports[`UserController findAll should return an array of all classes 1`] = `
 ]
 `;
 
-exports[`UserController findClassesWithSubjects should return all classes with their subjects 1`] = `"dummyMappedResult"`;
+exports[`UserController findById should return a class with given id 1`] = `"dummyFoundByIdClass"`;
 
-exports[`UserController findUnique should return a class with given id 1`] = `"dummyFoundByIdClass"`;
+exports[`UserController findClassesWithSubjects should return all classes with their subjects 1`] = `"dummyMappedResult"`;
 
 exports[`UserController update should update a class with given id 1`] = `"dummyUpdatedClass"`;

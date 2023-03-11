@@ -7,7 +7,7 @@ import {
   dummyAdminCreate,
   dummyAdminId,
   dummyAdminUpdate,
-} from './utils/dummy.data';
+} from './dummies/dummy.data';
 
 describe('UserController', () => {
   let adminController: AdminController;

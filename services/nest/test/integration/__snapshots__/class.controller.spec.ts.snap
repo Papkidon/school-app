@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[ClassController] Integration tests Create class - should fail when class with given number already exists 1`] = `
+{
+  "message": "Class with given number already exists",
+  "statusCode": 409,
+}
+`;
+
+exports[`[ClassController] Integration tests Create class - should fail when request body is incorrect 1`] = `
+[
+  {
+    "code": "invalid_type",
+    "expected": "object",
+    "message": "Required",
+    "path": [
+      "data",
+    ],
+    "received": "undefined",
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "wrong",
+    ],
+    "message": "Unrecognized key(s) in object: 'wrong'",
+    "path": [],
+  },
+]
+`;
+
+exports[`[ClassController] Integration tests Create class - should pass when request body is correct 1`] = `{}`;
+
+exports[`[ClassController] Integration tests Delete class - should fail when class with given id does not exist in the db 1`] = `
+{
+  "message": "Class with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[ClassController] Integration tests Delete class - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[ClassController] Integration tests Delete class - should pass when class with given id exists in the db 1`] = `{}`;
+
+exports[`[ClassController] Integration tests Get all classes - should fail when no class data exists in the db 1`] = `
+{
+  "message": "No class data exists in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[ClassController] Integration tests Get all classes - should pass when at least one class exists in the db 1`] = `
+[
+  "dummyFoundClasses",
+]
+`;
+
+exports[`[ClassController] Integration tests Get class by id - should fail when class with given id does not exists in the db 1`] = `
+{
+  "message": "User with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[ClassController] Integration tests Get class by id - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[ClassController] Integration tests Get class by id - should pass when class with given id exists in the db 1`] = `{}`;
+
+exports[`[ClassController] Integration tests Get classes with subjects - should fail when data does not exists 1`] = `
+{
+  "message": "No class data exists in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[ClassController] Integration tests Get classes with subjects - should pass when data exists 1`] = `
+[
+  {
+    "id": "d379d73a-7958-44e4-ab59-0e4128f35295",
+    "max_population": 20,
+    "number": 211,
+    "subjects": [
+      {
+        "id": "917d669d-ea51-4031-b7ef-25b1850bbd52",
+        "name": "geography",
+        "points": 1,
+      },
+    ],
+  },
+  {
+    "id": "261133c7-c73c-4a7f-8199-548798dc0e97",
+    "max_population": 15,
+    "number": 111,
+    "subjects": [
+      {
+        "id": "c3114bc1-1bfa-4f44-ba17-f199a6dc635c",
+        "name": "math",
+        "points": 5,
+      },
+    ],
+  },
+]
+`;
+
+exports[`[ClassController] Integration tests Update class - should fail when class with given id does not exists in the db 1`] = `
+{
+  "message": "Class with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[ClassController] Integration tests Update class - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[ClassController] Integration tests Update class - should pass when class with given id exists in the db 1`] = `{}`;

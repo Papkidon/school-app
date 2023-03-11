@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`[AdminController] Integration tests Create admin - should fail when admin with given username already exists 1`] = `
+{
+  "message": "Admin with given username already exists",
+  "statusCode": 409,
+}
+`;
+
 exports[`[AdminController] Integration tests Create admin - should fail when request body is incorrect 1`] = `
 [
   {
@@ -46,7 +53,7 @@ exports[`[AdminController] Integration tests Delete admin - should pass when adm
 
 exports[`[AdminController] Integration tests Get admin by id - should fail when admin with given id does not exists in the db 1`] = `
 {
-  "message": "User with given id does not exist in the database",
+  "message": "Admin with given id does not exist in the database",
   "statusCode": 404,
 }
 `;

@@ -12,7 +12,7 @@ import {
   dummyClassCreate,
   dummyClassId,
   dummyClassUpdate,
-} from './utils/dummy.data';
+} from './dummies/dummy.data';
 
 describe('UserController', () => {
   let classController: ClassController;
@@ -43,7 +43,7 @@ describe('UserController', () => {
     });
   });
 
-  describe('findUnique', () => {
+  describe('findById', () => {
     it('should return a class with given id', async () => {
       const result = 'dummyFoundByIdClass' as unknown as Class;
       jest
@@ -77,10 +77,15 @@ describe('UserController', () => {
 
   describe('create', () => {
     it('should create a new class', async () => {
+      const dummyClassNotFoundByNumber = '' as unknown as Class;
       const result = 'dummyCreatedClass' as unknown as Class;
       jest
         .spyOn(classRepository, 'create')
         .mockImplementation(async () => result);
+
+      jest
+        .spyOn(classRepository, 'findByNumber')
+        .mockImplementation(async () => dummyClassNotFoundByNumber);
 
       expect(await classController.create(dummyClassCreate)).toMatchSnapshot();
     });
@@ -88,10 +93,15 @@ describe('UserController', () => {
 
   describe('update', () => {
     it('should update a class with given id', async () => {
+      const dummyFoundClassById = 'dummyFoundClassById' as unknown as Class;
       const result = 'dummyUpdatedClass' as unknown as Class;
       jest
         .spyOn(classRepository, 'update')
         .mockImplementation(async () => result);
+
+      jest
+        .spyOn(classRepository, 'findById')
+        .mockImplementation(async () => dummyFoundClassById);
 
       expect(
         await classController.update(dummyClassId, dummyClassUpdate),
@@ -101,10 +111,15 @@ describe('UserController', () => {
 
   describe('delete', () => {
     it('should delete a class with given id', async () => {
+      const dummyFoundClassById = 'dummyFoundClassById' as unknown as Class;
       const result = 'dummyDeletedUser' as unknown as Class;
       jest
         .spyOn(classRepository, 'delete')
         .mockImplementation(async () => result);
+
+      jest
+        .spyOn(classRepository, 'findById')
+        .mockImplementation(async () => dummyFoundClassById);
 
       expect(await classController.delete(dummyClassId)).toMatchSnapshot();
     });
