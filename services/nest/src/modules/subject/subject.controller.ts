@@ -3,24 +3,23 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
-  Post,
-  Patch,
   HttpException,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { SubjectService } from './subject.service';
-import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
+import { Subject } from '@prisma/client';
 import {
   subjectCreateSchema,
   subjectType,
   subjectUpdateSchema,
 } from '../../models/subject/subject.types';
-import { DeepPartial } from '../../models/utility.types';
-import { Subject } from '@prisma/client';
+import { DeepPartial, idSchema } from '../../models/utility.types';
+import { ZodValidationPipe } from '../../pipes/zod.validation.pipe';
 import { mapSubjectsWithClasses } from './subject.mapper';
-import { idSchema } from '../../models/utility.types';
+import { SubjectService } from './subject.service';
 
 @Controller('api/v1/subject')
 export class SubjectController {
@@ -33,7 +32,7 @@ export class SubjectController {
 
       if (!Object.keys(result).length) {
         throw new HttpException(
-          'No user data exists in the database',
+          'No subject data exists in the database',
           HttpStatus.NOT_FOUND,
         );
       }
@@ -47,9 +46,18 @@ export class SubjectController {
   @Get('classes')
   async findAllSubjectsWithClasses(): Promise<unknown> {
     try {
-      return mapSubjectsWithClasses(
+      const result = mapSubjectsWithClasses(
         await this.subjectService.findAllSubjectWithClasses(),
       );
+
+      if (!result.length) {
+        throw new HttpException(
+          'No subject with classes data was found in the database',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      return result;
     } catch (error) {
       throw error;
     }
@@ -61,6 +69,17 @@ export class SubjectController {
     createSubjectDto: subjectType,
   ): Promise<Subject> {
     try {
+      const subjectExists = await this.subjectService.findByName(
+        createSubjectDto.data.name,
+      );
+
+      if (subjectExists) {
+        throw new HttpException(
+          'Subject with given name already exists',
+          HttpStatus.CONFLICT,
+        );
+      }
+
       return await this.subjectService.create(createSubjectDto);
     } catch (error) {
       throw error;
@@ -76,7 +95,7 @@ export class SubjectController {
 
       if (!result) {
         throw new HttpException(
-          'User with given id does not exist in the database',
+          'Subject with given id does not exist in the database',
           HttpStatus.NOT_FOUND,
         );
       }
@@ -93,8 +112,16 @@ export class SubjectController {
     @Body(new ZodValidationPipe(subjectUpdateSchema))
     body: DeepPartial<subjectType>,
   ): Promise<Subject> {
-    console.log(id);
     try {
+      const subjectExists = await this.subjectService.findById(id);
+
+      if (!subjectExists) {
+        throw new HttpException(
+          'Subject with given id does not exist in the database',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
       return await this.subjectService.update(id, body);
     } catch (error) {
       throw error;
@@ -106,6 +133,15 @@ export class SubjectController {
     @Param('id', new ZodValidationPipe(idSchema)) id: string,
   ): Promise<Subject> {
     try {
+      const subjectExists = await this.subjectService.findById(id);
+
+      if (!subjectExists) {
+        throw new HttpException(
+          'Subject with given id does not exist in the database',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
       return await this.subjectService.delete(id);
     } catch (error) {
       throw error;

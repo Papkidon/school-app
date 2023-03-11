@@ -6,6 +6,7 @@ import {
 export const mapClassesWithSubjects = (
   classes: classesWithSubjectsDto,
 ): mappedClassesWithSubjects => {
+  if (!classes.length) return [];
   return classes.map((subject) => {
     return {
       id: subject.id,
