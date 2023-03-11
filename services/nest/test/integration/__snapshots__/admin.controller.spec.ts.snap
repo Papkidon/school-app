@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[AdminController] Integration tests Create admin - should fail when request body is incorrect 1`] = `
+[
+  {
+    "code": "invalid_type",
+    "expected": "object",
+    "message": "Required",
+    "path": [
+      "data",
+    ],
+    "received": "undefined",
+  },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "wrong",
+    ],
+    "message": "Unrecognized key(s) in object: 'wrong'",
+    "path": [],
+  },
+]
+`;
+
+exports[`[AdminController] Integration tests Create admin - should pass when request body is correct 1`] = `{}`;
+
+exports[`[AdminController] Integration tests Delete admin - should fail when admin with given id does not exist in the db 1`] = `
+{
+  "message": "Admin with given id does not exist",
+  "statusCode": 404,
+}
+`;
+
+exports[`[AdminController] Integration tests Delete admin - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[AdminController] Integration tests Delete admin - should pass when admin with given id exists in the db 1`] = `{}`;
+
+exports[`[AdminController] Integration tests Get admin by id - should fail when admin with given id does not exists in the db 1`] = `
+{
+  "message": "User with given id does not exist in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[AdminController] Integration tests Get admin by id - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[AdminController] Integration tests Get admin by id - should pass when admin with given id exists in the db 1`] = `{}`;
+
+exports[`[AdminController] Integration tests Get all admins - should fail when no admin data exists in the db 1`] = `
+{
+  "message": "No admin data exists in the database",
+  "statusCode": 404,
+}
+`;
+
+exports[`[AdminController] Integration tests Get all admins - should pass when at least one admin exists in the db 1`] = `
+[
+  "dummyFoundAdmin",
+]
+`;
+
+exports[`[AdminController] Integration tests Update admin - should fail when admin with given id does not exists in the db 1`] = `
+{
+  "message": "Admin with given id does not exist",
+  "statusCode": 404,
+}
+`;
+
+exports[`[AdminController] Integration tests Update admin - should fail when id parameter is not UUID 1`] = `
+[
+  {
+    "code": "invalid_string",
+    "message": "Invalid uuid",
+    "path": [],
+    "validation": "uuid",
+  },
+]
+`;
+
+exports[`[AdminController] Integration tests Update admin - should pass when admin with given id exists in the db 1`] = `{}`;
