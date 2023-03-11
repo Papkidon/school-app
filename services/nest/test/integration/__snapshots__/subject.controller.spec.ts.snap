@@ -11,6 +11,14 @@ exports[`[SubjectController] Integration tests Create subject - should fail when
     ],
     "received": "undefined",
   },
+  {
+    "code": "unrecognized_keys",
+    "keys": [
+      "wrong",
+    ],
+    "message": "Unrecognized key(s) in object: 'wrong'",
+    "path": [],
+  },
 ]
 `;
 
